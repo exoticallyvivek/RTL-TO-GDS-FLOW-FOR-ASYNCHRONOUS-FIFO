@@ -1,0 +1,67 @@
+# Version:1.0 MMMC View Definition File
+
+###############################################################
+# LIBRARY SETS
+###############################################################
+
+create_library_set -name LIB_SS \
+-timing {/home/install/FOUNDRY/digital/90nm/dig/lib/slow.lib}
+
+create_library_set -name LIB_FF \
+-timing {/home/install/FOUNDRY/digital/90nm/dig/lib/fast.lib}
+
+create_library_set -name LIB_TT \
+-timing {/home/install/FOUNDRY/digital/90nm/dig/lib/typical.lib}
+
+###############################################################
+# RC CORNERS
+###############################################################
+
+create_rc_corner -name RC_BEST
+create_rc_corner -name RC_TYP
+create_rc_corner -name RC_WORST
+
+###############################################################
+# CONSTRAINT MODE
+###############################################################
+
+create_constraint_mode -name FUNC_MODE \
+-sdc_files {constraints_top.sdc}
+
+###############################################################
+# DELAY CORNERS
+###############################################################
+
+create_delay_corner -name DC_SETUP \
+-library_set {LIB_SS} \
+-rc_corner {RC_WORST}
+
+create_delay_corner -name DC_HOLD \
+-library_set {LIB_FF} \
+-rc_corner {RC_BEST}
+
+create_delay_corner -name DC_TYP \
+-library_set {LIB_TT} \
+-rc_corner {RC_TYP}
+
+###############################################################
+# ANALYSIS VIEWS
+###############################################################
+
+create_analysis_view -name SETUP_VIEW \
+-constraint_mode {FUNC_MODE} \
+-delay_corner {DC_SETUP}
+
+create_analysis_view -name HOLD_VIEW \
+-constraint_mode {FUNC_MODE} \
+-delay_corner {DC_HOLD}
+
+create_analysis_view -name TYP_VIEW \
+-constraint_mode {FUNC_MODE} \
+-delay_corner {DC_TYP}
+
+###############################################################
+# APPLY VIEWS
+###############################################################
+
+set_analysis_view -setup {SETUP_VIEW} -hold {HOLD_VIEW}

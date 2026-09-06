@@ -1,0 +1,30 @@
+###################################################################
+# Innovus Global Initialization File
+####################################################################
+
+set defHierChar {/}
+
+set init_top_cell async_fifo
+
+set init_pwr_net {VDD}
+set init_gnd_net {VSS}
+
+set init_pwr_port VDD
+set init_gnd_port VSS
+
+set init_lef_file {/home/install/FOUNDRY/digital/90nm/dig/lef/gsclib090_translated.lef
+                   /home/install/FOUNDRY/digital/90nm/dig/lef/gsclib090_macro.lef
+                   /home/install/FOUNDRY/digital/90nm/dig/lef/gsclib090_tech.lef}
+
+set init_verilog {async_fifo_netlist.v}
+
+set init_mmmc_file {Default.view}
+
+set init_design_settop 1
+set init_design_uniquify 1
+
+set distributed_client_message_echo 1
+
+set eco_post_client_restore_command {update_timing ; write_eco_opt_db ;}
+
+
